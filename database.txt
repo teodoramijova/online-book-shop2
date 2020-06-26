@@ -1,0 +1,84 @@
+drop schema if exists emt_lab2_173115;
+
+create schema emt_lab2_173115;
+
+use emt_lab2_173115;
+
+
+create table `category`(
+`idcat` int(30) not null auto_increment,
+`namecat` varchar(100) not null,
+`desccat` varchar(1000) not null,
+primary key(`idcat`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+insert into `category` (`idcat`,`namecat`,`desccat`) values ('1','Fantasy','Fantasy is a genre of speculative fiction set in a fictional universe, often inspired by real world myth and folklore.');
+insert into `category` (`idcat`,`namecat`,`desccat`) values ('2','Romance','Romance is an emotional feeling of love for, or a strong attraction towards another person.');
+insert into `category` (`idcat`,`namecat`,`desccat`) values ('3','Poetry','Poetry is a form of literary art in which language is used for its aesthetic and evocative qualities in addition to, or in lieu of, its apparent meaning.');
+insert into `category` (`idcat`,`namecat`,`desccat`) values ('4','Drama','Drama is the specific mode of fiction represented in performance: a play, opera, mime, ballet, etc., performed in a theatre, or on radio or television.');
+
+
+drop table category;
+
+
+create table `books`(
+`idbook` int(50) not null auto_increment,
+`namebook` varchar(100) not null,
+`editionbook` int(100) not null,
+`image` longblob,
+`price` int(100) not null,
+`category_id` int(30) not null,
+primary key(`idbook`),
+constraint f_key_book foreign key (`category_id`) references `category`(`idcat`) on delete no action on update no action
+);
+
+insert into `books` (`idbook`,`namebook`,`editionbook`,`image`,`price`,`category_id`) values ('1', 'A GAME OF THRONES','5','null','20','1');
+
+drop table books;
+
+
+create table `shopping_carts`(
+`idshoppingcart` int(50) not null auto_increment,
+`statusshoppingcart` varchar(100) not null,
+`createdate` datetime,
+`closedate` datetime,
+`user_shoppingcart` int(100) not null,
+primary key(`idshoppingcart`),
+constraint f_key1_book foreign key (`user_shoppingcart`) references users(`id`) on delete no action on update no action
+);
+
+drop table shopping_carts;
+
+
+
+create table `books_carts`(
+`id_book` int(50) not null,
+`id_cart` int(50) not null,
+primary key(`id_book`, `id_cart`),
+constraint f_key2_book foreign key (`id_book`) REFERENCES books (`idbook`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+constraint f_key3_book foreign key (`id_cart`) REFERENCES shopping_carts (`idshoppingcart`) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+drop table books_carts;
+
+create table `users`(
+id int(50) not null auto_increment,
+email varchar(50) not null,
+password varchar(50) not null,
+first_name varchar(50) not null,
+last_name varchar(50) not null,
+enabled boolean not null,
+confirmation_token varchar(50) not null,
+primary key(id)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+drop table users;
+
+
+create table `hibernate_sequence`(
+next_val bigint
+);
+
+insert into `hibernate_sequence` (`next_val`) values ('1');
+insert into `hibernate_sequence` (`next_val`) values ('1');
+

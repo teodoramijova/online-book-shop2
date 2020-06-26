@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Books</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-dark bg-danger">
+    <a class="navbar-brand" style="margin-left: 150px">Book-Chapter</a>
+    <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <li style="text-decoration: none; list-style: none"><a class="btn btn-outline-light" th:href="@{/books/add-new}">ADD BOOK</a></li>
+    </form>
+</nav>
+<div class="container">
+    <div class="card mb-3 text-center" style="max-width: 540px;padding: 20px; margin-left: 250px">
+        <div class="row no-gutters" th:each="book : ${books}" th:object="${book}">
+            <div class="col-md-4" >
+                <img th:src="@{${book.base64Image}}" src="..." class="card-img rounded" alt="..." style="width: 180px; height: 250px;padding:20px">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 th:text="${book.nameBook}" class="card-title">Card title</h5>
+                    <p style="font-weight: bold"   th:text="${book.category.nameCat}"> <br>
+                    <p th:text="${book.category.descCat}" class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <a th:href="@{/books/{id}/edit(id = ${book.id})}" class="btn btn-danger">Edit</a>
+                    <form th:action="@{/books/{id}/delete(id = ${book.id})}" th:method="delete">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</body>
+</html>
