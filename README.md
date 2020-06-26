@@ -1,0 +1,1 @@
+Developed an online book-shop website using Java Spring Boot, MySQL Database, HTML, and CSS. The online book-shop lets users rent a book while writing the data in a database. The website contains register and login functionalities.
